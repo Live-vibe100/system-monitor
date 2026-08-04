@@ -8,10 +8,49 @@ Electron + React + TypeScript + Tailwind.
 
 ## Status
 
-v1.0.0. Installer at `release/System Monitor Setup 1.0.0.exe` (~78 MB, NSIS one-click).
+v1.0.0.
 
-Install is hands-off: ~25 s, no wizard pages, auto-closes a running instance, launches when done.
-Uninstall removes everything it created — see [Installer](#installer) below.
+## Install
+
+Grab `System Monitor Setup 1.0.0.exe` from the [Releases](../../releases) page and run it. It's a
+one-click NSIS installer: ~25 s, no wizard pages, auto-closes a running instance, and launches when
+it's done. Per-user, so no admin prompt.
+
+Uninstall through Settings → Apps, or the Start Menu entry. It removes everything it created —
+see [Installer](#installer) below for exactly what that covers.
+
+### "Windows protected your PC"
+
+You will get a SmartScreen warning on first run. **This is expected.** The installer isn't
+code-signed, and Windows shows that warning for any unsigned application it hasn't seen before.
+
+To continue: click **More info**, then **Run anyway**.
+
+If you'd rather not, the alternative is to build it yourself — see
+[Development](#development). The result is the same installer.
+
+Code signing isn't just a switch that can be flipped: it needs a certificate purchased from a
+certificate authority, and since June 2023 the private key has to live on a hardware token or a
+cloud signing service. Worth doing if this ever picks up real users; overkill for a free tray app
+right now.
+
+### Verifying your download
+
+Signing proves *who* built something. A checksum only proves the file wasn't altered in transit —
+less useful, but free, so here it is. For the v1.0.0 installer:
+
+```
+SHA-256  bb573a46ff62f5fd3c99f0418772af9a2ddc0a67fc4c90c8c2f4606079361ece
+```
+
+Check it in PowerShell:
+
+```powershell
+Get-FileHash "System Monitor Setup 1.0.0.exe" -Algorithm SHA256
+```
+
+That hash covers the exact binary attached to the v1.0.0 release. A build you produce yourself will
+not match it — Electron builds embed timestamps and aren't byte-reproducible.
 
 ## The short version of how it works
 
