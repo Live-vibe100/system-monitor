@@ -12,7 +12,7 @@ v1.0.0.
 
 ## Install
 
-Grab `System Monitor Setup 1.0.0.exe` from the [Releases](../../releases) page and run it. It's a
+Grab `System.Monitor.Setup.1.0.0.exe` from the [Releases](../../releases) page and run it. It's a
 one-click NSIS installer: ~25 s, no wizard pages, auto-closes a running instance, and launches when
 it's done. Per-user, so no admin prompt.
 
@@ -46,8 +46,11 @@ SHA-256  bb573a46ff62f5fd3c99f0418772af9a2ddc0a67fc4c90c8c2f4606079361ece
 Check it in PowerShell:
 
 ```powershell
-Get-FileHash "System Monitor Setup 1.0.0.exe" -Algorithm SHA256
+Get-FileHash "System.Monitor.Setup.1.0.0.exe" -Algorithm SHA256
 ```
+
+(GitHub replaces spaces with dots in release asset names, so the downloaded file is
+`System.Monitor.Setup.1.0.0.exe` even though the build produces it with spaces.)
 
 That hash covers the exact binary attached to the v1.0.0 release. A build you produce yourself will
 not match it — Electron builds embed timestamps and aren't byte-reproducible.
