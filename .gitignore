@@ -1,0 +1,10 @@
+node_modules/
+out/
+release/
+*.log
+.env
+.env.local
+.DS_Store
+
+# Internal working notes — never published
+project-sysmonitor.md

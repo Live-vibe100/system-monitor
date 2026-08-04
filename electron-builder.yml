@@ -1,0 +1,41 @@
+appId: com.systemmonitor.app
+productName: System Monitor
+# store = no decompression during install. Installer file is bigger, but
+# it's only ever run locally and installs in a fraction of the time.
+compression: store
+directories:
+  output: release
+files:
+  - out/**/*
+  - package.json
+extraResources:
+  - from: resources/
+    to: .
+    filter: ["**/*.ico"]
+win:
+  target:
+    - nsis
+  icon: resources/icon.ico
+  artifactName: "System Monitor Setup ${version}.${ext}"
+nsis:
+  # One-click: no wizard pages, single progress pass (the assisted wizard
+  # ran the old version's uninstaller mid-install, which made the bar fill,
+  # jump back, and refill), auto-closes a running instance, and launches
+  # the app immediately when done.
+  oneClick: true
+  perMachine: false
+  createDesktopShortcut: false
+  # Leave nothing behind: without this the settings file AND the whole
+  # Chromium profile (Cache / GPUCache / Local Storage / Network) stay in
+  # %AppData%\system-monitor after uninstall. The Run-key cleanup that NSIS
+  # can't know about lives in build/installer.nsh.
+  deleteAppDataOnUninstall: true
+  include: build/installer.nsh
+  createStartMenuShortcut: true
+  runAfterFinish: true
+  shortcutName: System Monitor
+  installerIcon: resources/icon.ico
+  uninstallerIcon: resources/icon.ico
+# TODO (v2): custom NSIS include for "Launch on login" checkbox in installer UI.
+# The setLoginItemSettings API is wired in main; wiring the installer checkbox
+# to pre-toggle it is a separate .nsh script — deferred.
