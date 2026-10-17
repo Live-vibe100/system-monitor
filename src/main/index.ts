@@ -187,14 +187,19 @@ if (!gotLock) {
       engine?.dispose()
       app.quit()
     })
+
+    // Launching it again (Start Menu, pinned shortcut) while it's already
+    // running: the duplicate exits on the single-instance lock, so open the
+    // popup here — otherwise the click looks like it did nothing.
+    // (Rejects only if the tray isn't up yet — a relaunch within the first
+    // instant of startup — in which case there's nothing to open anyway.)
+    app.on('second-instance', () => {
+      mb.showWindow().catch((err: Error) => console.warn('[app] relaunch:', err.message))
+    })
   })
 
   app.on('window-all-closed', () => {
     // Keep the tray running when the popup closes.
     // (Having any listener on this event prevents Electron's default quit.)
-  })
-
-  app.on('second-instance', () => {
-    // Single-instance lock already blocks duplicates; menubar keeps the tray.
   })
 }

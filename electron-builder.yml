@@ -36,6 +36,3 @@ nsis:
   shortcutName: System Monitor
   installerIcon: resources/icon.ico
   uninstallerIcon: resources/icon.ico
-# TODO (v2): custom NSIS include for "Launch on login" checkbox in installer UI.
-# The setLoginItemSettings API is wired in main; wiring the installer checkbox
-# to pre-toggle it is a separate .nsh script — deferred.
